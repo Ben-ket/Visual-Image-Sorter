@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <random>
 #include <SFML/Graphics.hpp>
 using namespace std;
 
@@ -44,6 +46,24 @@ int main()
             pixels[index] = {index , c};
         }
     }
+
+    // shuffling array
+    random_device rd;    
+    mt19937 rng(rd());                      
+
+    shuffle(pixels.begin(), pixels.end(), rng);
+
+    // writing shuffled array to image
+
+    for(int i = 0; i < imgPixelCount; i++)
+    {
+        unsigned int x = i % width;
+        unsigned int y = i / width;
+
+        image.setPixel({x,y} , pixels[i].color);
+
+    }
+
 
     sf::Texture texture(image);
 
